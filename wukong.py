@@ -28,7 +28,6 @@ class Wukong(object):
     _debug = False
 
     def init(self):
-        self.detector = None
         self.porcupine = None
         self.gui = None
         self._interrupted = False
@@ -63,7 +62,7 @@ class Wukong(object):
         utils.clean()
         self.lifeCycleHandler.onKilled()
 
-    def _detected_callback(self, is_snowboy=True):
+    def _detected_callback(self, is_azure=True):
         def _start_record():
             logger.info("开始录音")
             self.conversation.isRecording = True
@@ -75,11 +74,11 @@ class Wukong(object):
         if self.conversation.isRecording:
             logger.warning("正在录音中，跳过")
             return
-        if is_snowboy:
+        if is_azure:
             self.conversation.interrupt()
             utils.setRecordable(False)
         self.lifeCycleHandler.onWakeup()
-        if is_snowboy:
+        if is_azure:
             _start_record()
 
     def _interrupt_callback(self):
@@ -92,6 +91,7 @@ class Wukong(object):
         # 后台管理端
         server.run(self.conversation, self, debug=self._debug)
         try:
+            # 初始化离线唤醒
             callbacks = wukong._detected_callback
             speech_recognize_keyword_locally_from_microphone(callbacks)
         except AttributeError:
@@ -159,10 +159,10 @@ class Wukong(object):
         重启 wukong-robot
         """
         logger.critical("程序重启...")
-        try:
-            self.detector.terminate()
-        except AttributeError:
-            pass
+        # try:
+        #     self.detector.terminate()
+        # except AttributeError:
+        #     pass
         python = sys.executable
         os.execl(python, python, *sys.argv)
 
