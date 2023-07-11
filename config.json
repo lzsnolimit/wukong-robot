@@ -1,0 +1,9 @@
+{
+  "azure": {
+    "azure_key": "622776d86b42453c8f6bbc464ecb065a",
+    "azure_region": "koreacentral",
+    "azure_speaker_identification_key_word_model": "cca6051e-9989-492c-9fec-2e6991eafa23",
+    "azure_speaker_identification_key_word": "你好有趣",
+    "azure_speaker_identification_lang": "zh-CN"
+  }
+}

@@ -11,9 +11,10 @@ from robot.Updater import Updater
 from robot.Conversation import Conversation
 from robot.LifeCycleHandler import LifeCycleHandler
 
-from robot import config, utils, constants, logging, detector
+from robot import config, utils, constants, logging
 
 from server import server
+from speech_sample import speech_recognize_keyword_locally_from_microphone
 from tools import make_json, solr_tools
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -91,8 +92,8 @@ class Wukong(object):
         # 后台管理端
         server.run(self.conversation, self, debug=self._debug)
         try:
-            # 初始化离线唤醒
-            detector.initDetector(self)
+            callbacks = wukong._detected_callback
+            speech_recognize_keyword_locally_from_microphone(callbacks)
         except AttributeError:
             logger.error("初始化离线唤醒功能失败", stack_info=True)
             pass

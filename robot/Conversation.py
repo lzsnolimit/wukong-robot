@@ -11,7 +11,7 @@ import traceback
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from snowboy import snowboydecoder
+# from snowboy import snowboydecoder
 
 from robot.LifeCycleHandler import LifeCycleHandler
 from robot.Brain import Brain

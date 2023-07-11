@@ -20,3 +20,4 @@ apscheduler
 asyncio
 edge-tts
 nest_asyncio
+azure-cognitiveservices-speech
